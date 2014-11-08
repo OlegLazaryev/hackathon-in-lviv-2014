@@ -24,10 +24,7 @@
                 socket.emit('move', { friend: player.id, friendX: player.x, friendY: player.y});
             }));
 
-            $('.tile').on( 'click', {PlayerObj:this},(function(event) {
-                var player = event.data.PlayerObj;
-                socket.emit('tile clicked', { tile_id: this.id, player_id: player.id });
-            }));
+
         };
         return {
             init: init
@@ -127,9 +124,12 @@
             console.log(availableHeight)
             for(var i = 0; i < this.tiles.length; i++) {
                 var rectangle = this.tiles[i]
-                $('.playground').append('<div class="rectangle" style="margin-top: ' + availableHeight * rectangle.y + 'px;margin-left: ' + availableWidth * rectangle.x + 'px;"></div>')
+                $('.playground').append('<div id="' + i + '" class="tile" style="margin-top: ' + availableHeight * rectangle.y + 'px;margin-left: ' + availableWidth * rectangle.x + 'px;"></div>')
             }
-
+            $('.tile').on( 'click', {PlayerObj:this},(function(event) {
+                var player = event.data.PlayerObj;
+                socket.emit('tile clicked', { tile_id: this.id, player_id: player.id });
+            }));
         }
     }
 
