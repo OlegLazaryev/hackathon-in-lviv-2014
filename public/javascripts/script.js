@@ -187,15 +187,7 @@
                 });
 
                 socket.on('game finished', function (data) {
-
-
-                    if (data.length > 1 && contains(data, self.player.id)) {
-                        alert('DRAW')
-                    } else if (contains(data, self.player.id)){
-                        alert('You Win')
-                    }else{
-                        alert('You Loose')
-                    }
+                    informAboutWinner(data);
                 });
 
 
@@ -212,6 +204,18 @@
                 }
             },
 
+            informAboutWinner = function (data) {
+                if (data.length > 1 && contains(data, self.player.id)) {
+                    alert('DRAW, try again to detect a winner!')
+                } else if (contains(data, self.player.id)){
+                    alert('You Win!')
+                }else{
+                    alert('Sorry, You Loose!')
+                }
+            },
+
+
+
             contains = function(data, value){
                 for(var i=0; i < data.length; i++){
                     if(data[i] === value){
@@ -225,7 +229,7 @@
                 this.friends.remove(id);
             },
             updateTotalConnections = function(total){
-                $('#connections').html(total);
+                $('#connections').html('There are ' + total + ' players! Let fastest wins.');
             };
         return {
             init: init
