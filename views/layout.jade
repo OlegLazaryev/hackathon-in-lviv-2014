@@ -2,8 +2,21 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/freelancer.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+    script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+    script(type="text/javascript", src="/javascripts/bootstrap.min.js")
+    script(type="text/javascript", src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js")
+
+
+
     script(type="text/javascript", src="/socket.io/socket.io.js")
     script(type="text/javascript", src="/javascripts/script.js")
-  body!= body
+  body(id='page-top', class='index')!= body
+
+  script(type="text/javascript", src="/javascripts/freelancer/classie.js")
+  script(type="text/javascript", src="/javascripts/freelancer/cbpAnimatedHeader.js")
+  script(type="text/javascript", src="/javascripts/freelancer/jqBootstrapValidation.js")
+  script(type="text/javascript", src="/javascripts/freelancer/contact_me.js")
+  script(type="text/javascript", src="/javascripts/freelancer/freelancer.js")
