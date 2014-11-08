@@ -21,7 +21,12 @@
                 var player = event.data.PlayerObj;
                 player.x = ((event.pageX / $(window).width()) * 100).toFixed(2);
                 player.y = ((event.pageY / $(window).height()) * 100).toFixed(2);
-                socket.emit('move',{ friend: player.id, friendX: player.x, friendY: player.y});
+                socket.emit('move', { friend: player.id, friendX: player.x, friendY: player.y});
+            }));
+
+            $('.tile').on( 'click', {PlayerObj:this},(function(event) {
+                var player = event.data.PlayerObj;
+                socket.emit('tile clicked', { tile_id: this.id, player_id: player.id });
             }));
         };
         return {
@@ -153,6 +158,17 @@
                 socket.on('move', function (data) {
                     self.friends.update(data);
                 });
+
+                socket.on('tile clicked', function (data) {
+                    console.log(data)
+                    console.log($('#'+data.tile_id))
+                    $('#'+data.tile_id).css('display', 'none');
+                    if ($('.tile:visible').size() == 0) {
+                        alert('Game is finished')
+                    }
+                });
+
+
 
             },
             createFriend = function(id,player){
