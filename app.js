@@ -36,19 +36,18 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/gaming-room/:id', routes.gamingRoom);
 
 // Messages
 
 var totalUsers = 0,
     stepID = 0,
-    tilesCount = 13,
-    tiles = [],
+    tilesCount = 10,
     friendsGroup = [];
 
 var game = new games.Game();
+
 io.sockets.on('connection', function (socket) {
-
-
   // new id
   var thisID = getID();
   // step users++
