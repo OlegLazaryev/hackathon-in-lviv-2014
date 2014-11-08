@@ -61,7 +61,7 @@ io.sockets.on('connection', function (socket) {
   // disconnect friends
   socket.on('disconnect', function (){
       removeUser(thisID);
-      socket.broadcast.emit('bye friend',{connections:totalUsers, friend: thisID});
+      socket.broadcast.emit('bye friend', {connections: totalUsers, friend: thisID});
   });
   // mouse move
   socket.on('move',function(data){
