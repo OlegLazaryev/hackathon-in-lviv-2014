@@ -40,9 +40,13 @@ app.get('/', routes.index);
 
 var totalUsers = 0,
     stepID = 0,
+    tilesCount = 10,
+    tiles = [],
     friendsGroup = [];
 
+
 io.sockets.on('connection', function (socket) {
+  tiles = generateRectangles(tilesCount)
   // new id
   var thisID = getID();
   // step users++
@@ -53,6 +57,7 @@ io.sockets.on('connection', function (socket) {
   socket.broadcast.emit('new friend', { friend: thisID  });
   // new connection self
   socket.emit('init',{ player:thisID, friends: friendsGroup });
+  io.sockets.emit('tiles', tiles);
   // disconnect friends
   socket.on('disconnect', function (){
       removeUser(thisID);
@@ -69,6 +74,23 @@ io.sockets.on('connection', function (socket) {
 });
 
 // Functions
+
+function generateRectCoords() {
+
+    var getRandomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    return getRandomInt(1, 9)
+}
+
+function generateRectangles(count) {
+    var tiles = []
+    for(var i = 0; i < count; i++) {
+        tiles.push({ x: generateRectCoords() * 0.1, y: generateRectCoords() * 0.1 })
+    }
+    return tiles;
+}
 
 function getID() {
     friendsGroup.push(++stepID);
@@ -98,4 +120,3 @@ function removeFromArray(string, array) {
 
 
 app.listen(80);
-//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

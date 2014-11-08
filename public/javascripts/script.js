@@ -115,6 +115,24 @@
         };
     }();
 
+    var Tiles = function(tiles) {
+        this.tiles = tiles
+    }
+
+    Tiles.prototype =  {
+        build: function () {
+            $('.playground').empty()
+            var availableWidth = $('.playground').width()
+            var availableHeight = $('.playground').height()
+            console.log(availableHeight)
+            for(var i = 0; i < this.tiles.length; i++) {
+                var rectangle = this.tiles[i]
+                $('.playground').append('<div class="rectangle" style="margin-top: ' + availableHeight * rectangle.y + 'px;margin-left: ' + availableWidth * rectangle.x + 'px;"></div>')
+            }
+
+        }
+    }
+
     // Functions
 
     var Meeting = function(socket) {
@@ -146,6 +164,11 @@
                 // New friend
                 socket.on('new friend', function (data) {
                     createFriend.call(self,data.friend);
+                });
+
+                socket.on('tiles', function (data) {
+                    var tiles = new Tiles(data);
+                    tiles.build();
                 });
 
                 // Friend gonne
