@@ -187,11 +187,14 @@
                 });
 
                 socket.on('game finished', function (data) {
-                    informAboutWinner(data);
+                    if (data.length > 1 && contains(data, self.player.id)) {
+                        alert('DRAW, try again to detect a winner!')
+                    } else if (contains(data, self.player.id)){
+                        alert('You Win!')
+                    }else{
+                        alert('Sorry, You Loose!')
+                    }
                 });
-
-
-
 
             },
             createFriend = function(id,player){
@@ -203,18 +206,6 @@
                     this.friends.add(friend);
                 }
             },
-
-            informAboutWinner = function (data) {
-                if (data.length > 1 && contains(data, self.player.id)) {
-                    alert('DRAW, try again to detect a winner!')
-                } else if (contains(data, self.player.id)){
-                    alert('You Win!')
-                }else{
-                    alert('Sorry, You Loose!')
-                }
-            },
-
-
 
             contains = function(data, value){
                 for(var i=0; i < data.length; i++){
