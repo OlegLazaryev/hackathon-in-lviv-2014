@@ -183,13 +183,21 @@
                 });
 
                 socket.on('tile clicked', function (data) {
-                    console.log(data)
-                    console.log($('#'+data.tile_id))
                     $('#'+data.tile_id).css('display', 'none');
-                    if ($('.tile:visible').size() == 0) {
-                        alert('Game is finished')
+                });
+
+                socket.on('game finished', function (data) {
+
+
+                    if (data.length > 1 && contains(data, self.player.id)) {
+                        alert('DRAW')
+                    } else if (contains(data, self.player.id)){
+                        alert('You Win')
+                    }else{
+                        alert('You Loose')
                     }
                 });
+
 
 
 
@@ -203,6 +211,16 @@
                     this.friends.add(friend);
                 }
             },
+
+            contains = function(data, value){
+                for(var i=0; i < data.length; i++){
+                    if(data[i] === value){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             removeFriend = function(id) {
                 this.friends.remove(id);
             },
