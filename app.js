@@ -41,16 +41,12 @@ app.get('/', routes.index);
 
 var totalUsers = 0,
     stepID = 0,
-    tilesCount = 4,
+    tilesCount = 13,
     tiles = [],
     friendsGroup = [];
 
 var game = new games.Game();
 io.sockets.on('connection', function (socket) {
-
-//    game.reset()
-//
-//  tiles = generateRectangles(tilesCount);
 
 
   // new id
