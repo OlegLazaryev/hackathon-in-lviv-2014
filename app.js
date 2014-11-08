@@ -41,18 +41,23 @@ app.get('/', routes.index);
 
 var totalUsers = 0,
     stepID = 0,
-    tilesCount = 10,
+    tilesCount = 4,
     tiles = [],
     friendsGroup = [];
 
-
+var game = new games.Game();
 io.sockets.on('connection', function (socket) {
-  var game = new games.Game()
+
+//    game.reset()
+//
+//  tiles = generateRectangles(tilesCount);
+
+
   // new id
   var thisID = getID();
   // step users++
   addUser();
-  game.start({players: friendsGroup, tileCount: tilesCount, io: io})
+  game.reset({players: friendsGroup, tileCount: tilesCount, io: io})
   // new connection ALL
   io.sockets.emit('connected', { connections: totalUsers });
   // new connection friends
@@ -70,9 +75,9 @@ io.sockets.on('connection', function (socket) {
       socket.broadcast.emit('move', data);
   });
   socket.on('tile clicked', function (data){
-      game.clicked(data)
+      data.player_id= thisID
+      game.clicked(data);
   });
-  //console.log(friendsGroup);
 });
 
 // Functions
