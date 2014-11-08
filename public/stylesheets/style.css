@@ -10,9 +10,10 @@ a {
   color: #00b7ff;
 }
 .friend {
-  width: 16px;
-  height: 24px;
-  background: url("../images/cursor.png");
+  width: 100px;
+  height: 100px;
+  background-size: 100% !important;
+  background: url("../images/dinosaur.png");
   position: absolute;
   z-index: 101;
   pointer-events: none;
